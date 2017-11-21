@@ -5,52 +5,64 @@ public class TicTacToe {
                    {{'*', '*', '*'},
                     {'*', '*', '*'},
                     {'*', '*', '*'}};
-
-    private static int[] inputCoords() {
+    private static byte[][] fieldMap =
+                   {{1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+    private static int[] inputCoords (){
+        int coordX;
+        int coordY;
+        int [] buffer=Alias();
+        coordY = buffer[0];
+        coordX = buffer[1];
+        //checking for free indexes in array (game will not continue without player move)
+        while (gameField[coordY][coordX] == '0' || gameField[coordY][coordX] == 'X') {
+            System.out.println("Wrong value! Players already make move here");
+       buffer=Alias();
+            coordY = buffer[0];
+            coordX = buffer[1];}
+        return new int[]{coordY, coordX};
+    }
+    private static int [] Alias(){
+        int coordX=0;
+        int coordY=0;
+        String input;
+        String inputMessage = "Enter the value to place players move (from 1 to 9)";
         Scanner sc1 = new Scanner(System.in);
-        int coordX, coordY;
-        String forSplit;
-        String inputMessage = "Введите координаты (через пробел) для размещенния хода игрока ";
-        forSplit = sc1.nextLine();
+        System.out.println(inputMessage);
+        input = sc1.next();
         //validation of input characters
-        while (!forSplit.matches("\\d\\s\\d")) {
-            System.out.println("Неправильный формат координат!");
-            forSplit = sc1.nextLine();
-        }
-        coordX = Integer.parseInt(forSplit.split(" ")[0]) - 1;
-        coordY = Integer.parseInt(forSplit.split(" ")[1]) - 1;
-        // checking if indexes are not out of bounds
-        while (coordX < 0 || coordX > 2 || coordY < 0 || coordY > 2) {
-            System.out.println("Неверные значения! Указаные индексы больше или меньше возможных значений!");
+        while (!input.matches("[1-9]")) {
+            System.out.println("Wrong value!");
             System.out.println(inputMessage);
-            forSplit = sc1.nextLine();
-            coordX = Integer.parseInt(forSplit.split(" ")[0]) - 1;
-            coordY = Integer.parseInt(forSplit.split(" ")[1]) - 1;
+            input = sc1.next();}
+        //switch case for alias
+        switch (input){
+            case "1":{coordY=0;coordX=0; break; }
+            case "2":{coordY=0;coordX=1; break; }
+            case "3":{coordY=0;coordX=2; break; }
+            case "4":{coordY=1;coordX=0; break; }
+            case "5":{coordY=1;coordX=1; break; }
+            case "6":{coordY=1;coordX=2; break; }
+            case "7":{coordY=2;coordX=0; break; }
+            case "8":{coordY=1;coordX=2; break; }
+            case "9":{coordY=2;coordX=2; break; }
         }
-
-        //checking for free indexes in massive (game will not continue without player move)
-        while (gameField[coordX][coordY] == '0' || gameField[coordX][coordY] == 'X') {
-            System.out.println("Неверные значения! Здесь уже был сделан ход");
-            System.out.println(inputMessage);
-            forSplit = sc1.nextLine();
-            coordX = Integer.parseInt(forSplit.split(" ")[0]) - 1;
-            coordY = Integer.parseInt(forSplit.split(" ")[1]) - 1;
-        }
-        return new int[]{coordX, coordY};
+        return new int[]{coordY, coordX};
     }
     private static void playerXmove() {
-        System.out.println("Ходит Игрок Х ");
+        System.out.println("Player X move !");
         int[] buffer = inputCoords();
-        int coordX = buffer[0];
-        int coordY = buffer[1];
-        gameField[coordX][coordY] = 'X';
+        int coordY = buffer[0];
+        int coordX = buffer[1];
+        gameField[coordY][coordX] = 'X';
     }
     private static void player0move() {
-        System.out.println("Ходит Игрок 0 ");
+        System.out.println("Player 0 move ");
         int[] buffer = inputCoords();
-        int coordX = buffer[0];
-        int coordY = buffer[1];
-        gameField[coordX][coordY] = '0';
+        int coordY = buffer[0];
+        int coordX = buffer[1];
+        gameField[coordY][coordX] = '0';
 
     }
     private static void printField() {
@@ -61,13 +73,22 @@ public class TicTacToe {
             System.out.println();
         }
     }
+    private static void fieldMap() {
+        System.out.println("Here is field map for players moves:");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(fieldMap[i][j]);
+            }
+            System.out.println();
+        }
+    }
     private static char gameStatus() {
         char winner = ' ';
         //horizon lines check
         for (int i = 0; i < 3; i++) {
             if (gameField[i][0] == gameField[i][1] && gameField[i][1] == gameField[i][2]
                     && gameField[i][0] != '*') {
-                winner = gameField[i][0];// return value from massive
+                winner = gameField[i][0];// return value from array
                 break;
             }
         }
@@ -222,7 +243,6 @@ public class TicTacToe {
             if (case1 && case2) {
                 line8check = true;
             }
-
             if (line1check && line2check && line3check && line4check && line5check && line6check && line7check && line8check) {
                 fieldCheck = false;
             }
@@ -230,28 +250,29 @@ public class TicTacToe {
         return fieldCheck;
     }
     public static void main(String[] args) {
-        System.out.println("Начало игры!");
-        printField();
-        while (gameStatus() == ' ' && canMove()) {
+        System.out.println("Game start!");
+        fieldMap();
 
+        while (gameStatus() == ' ' && canMove()) {
             playerXmove();
             numberOfmoves++;
             printField();
             if (gameStatus() == 'X') {
-                System.out.println("Победа игрока Х!");
+                System.out.println("Player Х win!");
                 break;
             }
             if (gameStatus() == '0') {
-                System.out.println("Победа игрока 0!");
+                System.out.println("Player 0 win!");
                 break;
             }
             player0move();
             numberOfmoves++;
             printField();
             if (gameStatus() == ' ' && !canMove()) {
-                System.out.println("Ничья!");
+                System.out.println("Draw!");
                 break;
             }
         }
     }
 }
+
