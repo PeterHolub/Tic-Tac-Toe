@@ -62,17 +62,13 @@ public class TicTacToe {
         int[] buffer = inputCoords();
         int coordY = buffer[0];
         int coordX = buffer[1];
-        gameField[coordY][coordX] = '0';
-
-    }
+        gameField[coordY][coordX] = '0'; }
     private static void printField() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.print(gameField[i][j]);
             }
-            System.out.println();
-        }
-    }
+            System.out.println(); } }
     private static void fieldMap() {
         System.out.println("Here is field map for players moves:");
         for (int i = 0; i < 3; i++) {
@@ -252,7 +248,6 @@ public class TicTacToe {
     public static void main(String[] args) {
         System.out.println("Game start!");
         fieldMap();
-
         while (gameStatus() == ' ' && canMove()) {
             playerXmove();
             numberOfmoves++;
@@ -271,8 +266,6 @@ public class TicTacToe {
             if (gameStatus() == ' ' && !canMove()) {
                 System.out.println("Draw!");
                 break;
-            }
-        }
-    }
+            } } }
 }
 

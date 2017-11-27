@@ -1,0 +1,5 @@
+# ignore bytecode files
+*.class
+# ignore out folder & Idea project properties
+out/
+.idea/workspace.xml
