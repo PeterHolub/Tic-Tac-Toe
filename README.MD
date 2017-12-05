@@ -13,6 +13,7 @@
 ## Run 
 Run script for execution:
 ```
+mvn compile
 mvn exec:exec
 ```
 
