@@ -79,8 +79,8 @@ public class TicTacToe {
                 break;
             }
             case "8": {
-                coordY = 1;
-                coordX = 2;
+                coordY = 2;
+                coordX = 1;
                 break;
             }
             case "9": {
@@ -169,47 +169,44 @@ public class TicTacToe {
         boolean case2;
         //starts to check draw option after 7-th move of players
         if (numberOfmoves >= 7) {
+            boolean lines1[] = {true, true, true};
+            boolean lines2[] = {true, true, true};
+            boolean linesOneToSixResult[] = new boolean[lines1.length + lines2.length];
 
-            boolean[] linesOneToThreeResult = checkLinesOneToThree();
+            System.arraycopy(lines1, 0, linesOneToSixResult, 0, lines1.length);
+            System.arraycopy(lines2, 0, linesOneToSixResult, lines1.length, lines2.length);
 
-            //X00
-            //X00
-            //X00
-            boolean line4check = false;
-            field1 = gameField[0][0];
-            field2 = gameField[1][0];
-            field3 = gameField[2][0];
-            fieldSum = String.valueOf(field1) + field2 + field3;
-            case1 = fieldSum.contains("X");
-            case2 = fieldSum.contains("0");
-            if (case1 && case2) {
-                line4check = true;
+//lines from 1 to 3
+            for (int i = 0; i < lines1.length; i++) {
+                lines1[i] = false;
+                field1 = gameField[i][0];
+                field2 = gameField[i][1];
+                field3 = gameField[i][2];
+
+                //concatenation
+                fieldSum = String.valueOf(field1) + field2 + field3;
+
+                //"contains" method for search X&0
+                case1 = fieldSum.contains("X");
+                case2 = fieldSum.contains("0");
+
+                lines1[i] = (case1 && case2);
             }
-            //0X0
-            //0X0
-            //0X0
-            boolean line5check = false;
-            field1 = gameField[0][1];
-            field2 = gameField[1][1];
-            field3 = gameField[2][1];
-            fieldSum = String.valueOf(field1) + field2 + field3;
-            case1 = fieldSum.contains("X");
-            case2 = fieldSum.contains("0");
-            if (case1 && case2) {
-                line5check = true;
-            }
-            //00X
-            //00X
-            //00X
-            boolean line6check = false;
-            field1 = gameField[0][2];
-            field2 = gameField[1][2];
-            field3 = gameField[2][2];
-            fieldSum = String.valueOf(field1) + field2 + field3;
-            case1 = fieldSum.contains("X");
-            case2 = fieldSum.contains("0");
-            if (case1 && case2) {
-                line6check = true;
+            //lines from 4 to 6
+            for (int i = 0; i < lines2.length; i++) {
+                lines2[i] = false;
+                field1 = gameField[0][i];
+                field2 = gameField[1][i];
+                field3 = gameField[2][i];
+
+                //concatenation
+                fieldSum = String.valueOf(field1) + field2 + field3;
+
+                //"contains" method for search X&0
+                case1 = fieldSum.contains("X");
+                case2 = fieldSum.contains("0");
+
+                lines2[i] = (case1 && case2);
             }
             // Х00
             // 0Х0
@@ -237,44 +234,11 @@ public class TicTacToe {
             if (case1 && case2) {
                 line8check = true;
             }
-            if (linesOneToThreeResult[0] && linesOneToThreeResult[1] && linesOneToThreeResult[2] && line4check && line5check && line6check && line7check && line8check) {
+            if (linesOneToSixResult[0] && linesOneToSixResult[1] && linesOneToSixResult[2] && linesOneToSixResult[3] && linesOneToSixResult[4] && linesOneToSixResult[5] && line7check && line8check) {
                 fieldCheck = false;
             }
         }
         return fieldCheck;
-    }
-
-    private static boolean[] checkLinesOneToThree() {
-
-        boolean lines[] = {true, true, true};
-
-        //variables for to assigning values of checked indexes and String variable fieldSum for concatenation char to String
-        char field1;
-        char field2;
-        char field3;
-        String fieldSum;
-
-        //variables for checking presence of X & 0
-        boolean case1;
-        boolean case2;
-
-        for (int i = 0; i < lines.length; i++) {
-            lines[i] = false;
-            field1 = gameField[i][0];
-            field2 = gameField[i][1];
-            field3 = gameField[i][2];
-
-            //concatenation
-            fieldSum = String.valueOf(field1) + field2 + field3;
-
-            //"contains" method for search X&0
-            case1 = fieldSum.contains("X");
-            case2 = fieldSum.contains("0");
-
-            lines[i] = (case1 && case2);
-        }
-
-        return lines;
     }
 
     public static void main(String[] args) {
@@ -302,4 +266,3 @@ public class TicTacToe {
         }
     }
 }
-
