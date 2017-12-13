@@ -6,9 +6,9 @@
 ## Project structure 
 
 * src\main\java\tictactoe\Input.java
-* src\main\java\tictactoe\Output.java
 * src\main\java\tictactoe\Main.java
-
+* src\main\java\tictactoe\Output.java
+* src\main\java\tictactoe\Static.java
 
 ## Run 
 Run script for execution:

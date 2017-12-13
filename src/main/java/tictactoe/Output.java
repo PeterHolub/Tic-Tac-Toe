@@ -1,8 +1,7 @@
 package tictactoe;
 
-class Output extends Input {
-
-    boolean canMove() {
+class Output {
+    boolean canMove(char[][] gameField) {
 
         //variable for return " true" if game will continue or "false" in case of drawn
         boolean fieldCheck = true;
@@ -15,15 +14,14 @@ class Output extends Input {
         boolean case1;
         boolean case2;
         //starts to check draw option after 7-th move of players
-        if (Main.getNumberOfmoves() >= 7) {
+        if (Static.getNumberOfmoves() >= 7) {
             boolean lines1[] = {true, true, true};
             boolean lines2[] = {true, true, true};
             boolean linesOneToSixResult[] = new boolean[lines1.length + lines2.length];
 
             System.arraycopy(lines1, 0, linesOneToSixResult, 0, lines1.length);
             System.arraycopy(lines2, 0, linesOneToSixResult, lines1.length, lines2.length);
-
-//lines from 1 to 3
+            //lines from 1 to 3
             for (int i = 0; i < lines1.length;
                  i++) {
                 lines1[i] = false;
@@ -90,7 +88,7 @@ class Output extends Input {
         return fieldCheck;
     }
 
-    char gameStatus() {
+    char gameStatus(char[][] gameField) {
         char winner = ' ';
         //horizon lines check
         for (int i = 0; i < 3; i++) {
@@ -108,7 +106,6 @@ class Output extends Input {
                     winner = gameField[0][i];
                     break;
                 }
-
             }
         }
         // Х00
@@ -130,7 +127,6 @@ class Output extends Input {
             }
         }
         // returns space if no winner
-
         return winner;
     }
 

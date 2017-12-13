@@ -1,4 +1,2 @@
-# ignore out folder & Idea project folder
-
-
+# ignore Idea project folder
 /.idea/
