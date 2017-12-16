@@ -1,4 +1,3 @@
-# ignore out folder & Idea project folder
-out/
-
+#Idea project folder
 /.idea/
+
