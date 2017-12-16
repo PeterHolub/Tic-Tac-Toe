@@ -1,28 +1,27 @@
 package tictactoe;
-
 import java.util.Scanner;
 
-class Input extends Main {
+class Input {
 
-    private int[] inputCoords() {
+    int[] inputCoords(int[] alias) {
         int coordX;
         int coordY;
-        int[] buffer = alias();
+        int[] buffer = alias;
         coordY = buffer[0];
         coordX = buffer[1];
         //checking for free indexes in array (game will not continue without player move)
-        while (gameField[coordY][coordX] == '0' || gameField[coordY][coordX] == 'X') {
+        while (Static.getGameField()[coordY][coordX] == '0' || Static.getGameField()[coordY][coordX] == 'X') {
             System.out.println("Wrong value! Players already make move here");
-            buffer = alias();
+
+            buffer = inputCoords(alias(scanner()));
             coordY = buffer[0];
             coordX = buffer[1];
         }
+
         return new int[]{coordY, coordX};
     }
 
-    private int[] alias() {
-        int coordX = 0;
-        int coordY = 0;
+    String scanner() {
         String input;
         String inputMessage = "Enter the value to place players move (from 1 to 9)";
         Scanner sc1 = new Scanner(System.in);
@@ -34,7 +33,13 @@ class Input extends Main {
             System.out.println(inputMessage);
             input = sc1.next();
         }
-        //switch case for alias
+        return input;
+    }
+
+    int[] alias(String input) {
+        int coordX = 0;
+        int coordY = 0;
+
         switch (input) {
             case "1": {
                 coordY = 0;
@@ -85,12 +90,4 @@ class Input extends Main {
         return new int[]{coordY, coordX};
     }
 
-    void playerMove(char playerAlias) {
-        System.out.println("Player " + playerAlias + " move ");
-        printVisual(getFieldMap());
-        int[] buffer = inputCoords();
-        int coordY = buffer[0];
-        int coordX = buffer[1];
-        gameField[coordY][coordX] = playerAlias;
-    }
 }
