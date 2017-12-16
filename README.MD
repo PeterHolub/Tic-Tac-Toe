@@ -1,5 +1,5 @@
-#Tic-Tac-Toe 
-**implementation of the classic game using Java SE**
+# Tic-Tac-Toe
+implementation of the classic game using Java SE
 ## Prerequisites
 * **JDK >= 1.8.0_131**;
 ## Structure
