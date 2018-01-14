@@ -26,18 +26,11 @@ public class OutputTest {
                 {{'X', 'X', '0'},
                         {'0', '0', 'X'},
                         {'X', '0', 'X'}};
-        Object[][] obj = new Object[4][2];
-        obj[0][0] = positiveCaseArray1;
-        obj[0][1] = true;
-        obj[1][0] = positiveCaseArray2;
-        obj[1][1] = true;
-        obj[2][0] = negativeCaseArray1;
-        obj[2][1] = false;
-        obj[3][0] = negativeCaseArray2;
-        obj[3][1] = false;
-
-        return obj;
-    }
+        return new Object[][]{
+                {positiveCaseArray1,true},
+                {positiveCaseArray2,true},
+                {negativeCaseArray1,false},
+                {negativeCaseArray2,false},};}
 
     @Test(dataProvider = "testCanMove")
     public void testCanMove(char[][] array, boolean expected) {
@@ -67,18 +60,11 @@ public class OutputTest {
                         {'0', '0', 'X'},
                         {'*', 'X', '0'}};
 
-        Object[][] obj = new Object[4][2];
-        obj[0][0] = positiveCaseArray1;
-        obj[0][1] = 'X';
-        obj[1][0] = positiveCaseArray2;
-        obj[1][1] = '0';
-        obj[2][0] = negativeCaseArray1;
-        obj[2][1] = ' ';
-        obj[3][0] = negativeCaseArray2;
-        obj[3][1] = ' ';
-
-        return obj;
-    }
+        return new Object[][]{
+                {positiveCaseArray1,'X'},
+                {positiveCaseArray2,'0'},
+                {negativeCaseArray1,' '},
+                {negativeCaseArray2,' '},};}
 
     @Test(dataProvider = "testGameStatus")
     public void testGameStatus(char[][] array, char expected) {

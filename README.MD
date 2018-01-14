@@ -9,6 +9,10 @@ implementation of the classic game using Java SE
 * src\main\java\tictactoe\Output.java
 * src\main\java\tictactoe\Static.java
 ## Run 
+Run script for Test
+```
+mvn test
+```
 Run script for execution:
 ```
 mvn compile
