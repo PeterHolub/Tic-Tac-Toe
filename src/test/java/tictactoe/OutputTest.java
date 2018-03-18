@@ -32,16 +32,7 @@ public class OutputTest {
                 {negativeCaseArray1,false},
                 {negativeCaseArray2,false},};}
 
-    @Test(dataProvider = "testCanMove")
-    public void testCanMove(char[][] array, boolean expected) {
-        //loop for make value more than 7 to make logic work to check fields (number 5 because we invoke setter 2 times by test provider)
-        for (int i = 0; i < 5; i++) {
-            Static.setNumberOfmoves();
-        }
-        assertEquals(output.canMove(array), expected);
-    }
-
-    @DataProvider(name = "testGameStatus")
+                @DataProvider(name = "testGameStatus")
     Object[][] getData2() {
         char[][] positiveCaseArray1 =
                 {{'X', '0', '*'},

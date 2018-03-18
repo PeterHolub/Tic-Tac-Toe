@@ -1,6 +1,15 @@
 package tictactoe;
 
+
+
+import java.io.IOException;
+
 class Static {
+    public static final char PLAYER_ONE_ALIAS = 'X';
+    public static final char PLAYER_TWO_ALIAS = '0';
+
+
+
     private static int numberOfmoves;
 
     static void setNumberOfmoves() {
@@ -31,9 +40,10 @@ class Static {
         return fieldMap;
     }
 
-    static void printVisual(char[][] arrayTwoD) {
+    static void printVisual(char[][] arrayTwoD) throws IOException {
+        Messages messages = new Messages();
         if (arrayTwoD == fieldMap) {
-            System.out.println("Here is field map for players moves:");
+            System.out.println(messages.getMessages().getProperty("fieldMap"));
         }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -43,7 +53,7 @@ class Static {
         }
     }
 
-    static void playerMove(char playerAlias) {
+    static void playerMove(char playerAlias) throws IOException {
         Input input = new Input();
         System.out.println("Player " + playerAlias + " move ");
         int[] buffer = input.inputCoords(input.alias(input.scanner()));

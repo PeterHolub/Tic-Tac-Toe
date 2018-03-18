@@ -1,19 +1,22 @@
 package tictactoe;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 class Input {
+     private Messages messages = new Messages();
+    int[] inputCoords(int[] alias) throws IOException {
 
-    int[] inputCoords(int[] alias) {
         int coordX;
         int coordY;
-        int[] buffer = alias;
-        coordY = buffer[0];
-        coordX = buffer[1];
-        //checking for free indexes in array (game will not continue without player move)
-        while (Static.getGameField()[coordY][coordX] == '0' || Static.getGameField()[coordY][coordX] == 'X') {
-            System.out.println("Wrong value! Players already make move here");
 
-            buffer = inputCoords(alias(scanner()));
+        coordY = alias[0];
+        coordX = alias[1];
+        //checking for free indexes in array (game will not continue without player move)
+        while (Static.getGameField()[coordY][coordX] == Static.PLAYER_TWO_ALIAS || Static.getGameField()[coordY][coordX] == Static.PLAYER_ONE_ALIAS) {
+            System.out.println(messages.getMessages().getProperty("wrongValue"));
+//  array buffer declaration to escape from endless loop after recursion
+            int[] buffer = inputCoords(alias(scanner()));
             coordY = buffer[0];
             coordX = buffer[1];
         }
@@ -21,16 +24,16 @@ class Input {
         return new int[]{coordY, coordX};
     }
 
-    String scanner() {
+    String scanner() throws IOException {
         String input;
-        String inputMessage = "Enter the value to place players move (from 1 to 9)";
+//        String inputMessage = "Enter the value to place players move (from 1 to 9)";
         Scanner sc1 = new Scanner(System.in);
-        System.out.println(inputMessage);
+        System.out.println(messages.getMessages().getProperty("enterValue"));
         input = sc1.next();
         //validation of input characters
         while (!input.matches("[1-9]")) {
-            System.out.println("Wrong value!");
-            System.out.println(inputMessage);
+            System.out.println(messages.getMessages().getProperty("wrongShort"));
+            System.out.println(messages.getMessages().getProperty("enterValue"));
             input = sc1.next();
         }
         return input;

@@ -1,10 +1,8 @@
 package tictactoe;
-
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.io.ByteArrayInputStream;
-
+import java.io.IOException;
 import static org.testng.Assert.assertEquals;
 
 public class InputTest {
@@ -13,20 +11,19 @@ public class InputTest {
     @DataProvider(name = "testScanner")
     Object[][] getData1() {
         return new Object[][]{
-                {"1","1"},
-                {"2","2"},
-                {"3","3"},
-                {"4","4"},
-                {"5","5"},
-                {"6","6"},
-                {"7","7"},
-                {"8","8"},
-                {"9","9"},};
+                {"1", "1"},
+                {"2", "2"},
+                {"3", "3"},
+                {"4", "4"},
+                {"5", "5"},
+                {"6", "6"},
+                {"7", "7"},
+                {"8", "8"},
+                {"9", "9"},};
     }
 
-
     @Test(dataProvider = "testScanner")
-    public void testScanner(String fakeIn, String expected) {
+    public void testScanner(String fakeIn, String expected) throws IOException {
         // creating "fake" System.in , in case without this operation test will be in endless loop, because input data required from console
         ByteArrayInputStream in = new ByteArrayInputStream(fakeIn.getBytes());
         // now System.in, when method scanner called,already have needed data
@@ -63,4 +60,5 @@ public class InputTest {
     public void testAlias(String actual, int[] expected) {
         assertEquals(input.alias(actual), expected);
     }
+
 }
