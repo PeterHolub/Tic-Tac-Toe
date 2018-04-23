@@ -1,29 +1,39 @@
 package tictactoe;
 
+
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+
+     void playersMovement(char playerAlias) throws IOException {
+
+        Static.playerMove(playerAlias);
+        Static.setNumberOfmoves();
+        Static.printVisual(Static.getFieldMap());
+        Static.printVisual(Static.getGameField());
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        Main main = new Main();
         Output output = new Output();
-        System.out.println("Game start!");
+        Messages messages = new Messages();
+        System.out.println(messages.getMessages().getProperty("start"));
 
         while (output.gameStatus(Static.getGameField()) == ' ' && output.canMove(Static.getGameField())) {
-            Static.playerMove('X');
-            Static.setNumberOfmoves();
-            Static.printVisual(Static.getFieldMap());
-            Static.printVisual(Static.getGameField());
-            if (output.gameStatus(Static.getGameField()) == 'X') {
-                System.out.println("Player Х win!");
+
+            main.playersMovement(Static.PLAYER_ONE_ALIAS);
+            if (output.gameStatus(Static.getGameField()) == Static.PLAYER_ONE_ALIAS) {
+                System.out.println(messages.getMessages().getProperty("xWin"));
                 break;
             }
-            if (output.gameStatus(Static.getGameField()) == '0') {
-                System.out.println("Player 0 win!");
+            main.playersMovement(Static.PLAYER_TWO_ALIAS);
+            if (output.gameStatus(Static.getGameField()) == Static.PLAYER_TWO_ALIAS) {
+                System.out.println(messages.getMessages().getProperty("0Win"));
                 break;
             }
-            Static.playerMove('0');
-            Static.setNumberOfmoves();
-            Static.printVisual(Static.getFieldMap());
-            Static.printVisual(Static.getGameField());
             if (output.gameStatus(Static.getGameField()) == ' ' && !output.canMove(Static.getGameField())) {
-                System.out.println("Draw!");
+                System.out.println(messages.getMessages().getProperty("draw"));
                 break;
             }
         }
